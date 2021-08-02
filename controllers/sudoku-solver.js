@@ -17,7 +17,7 @@ class SudokuSolver {
   }
 
   checkRowPlacement(puzzleString, row, column, value) {
-      var board = createBoard(puzzleString,9);
+      var board = this.createBoard(puzzleString,9);
       for (var i = 0; i < 9; i++) {
               if (board[row][i] == value) {
                   return {
@@ -32,7 +32,7 @@ class SudokuSolver {
   }
 
   checkColPlacement(puzzleString, row, column, value) {
-      var board = createBoard(puzzleString);
+      var board = this.createBoard(puzzleString);
       for (var i = 0; i < 9; i++) {
               if (board[i][column] == value) {
                   return {
@@ -48,7 +48,7 @@ class SudokuSolver {
   }
 
   checkRegionPlacement(puzzleString, row, column, value) {
-     var board = createBoard(puzzleString,9);
+     var board = this.createBoard(puzzleString,9);
       let regionStartRow = parseInt(row / 3) * 3;
           let regionStartCol = parseInt(column / 3) * 3;
           for (let i = regionStartRow; i < regionStartRow + 3; i++) {
@@ -68,7 +68,7 @@ class SudokuSolver {
 
 solve(puzzleString) {
     var board = this.createBoard(puzzleString,9);
-     if(this.sudokuSolver(board)) {
+     if(this.sudokuSolverFunc(board)) {
        return this.createPuzzleString(board);
      }
 }
@@ -85,14 +85,14 @@ isValid(board, row, col, k) {
 }
 
 
-sudokuSolver(data) {
+sudokuSolverFunc(data) {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (data[i][j] == '.') {
                 for (let k = 1; k <= 9; k++) {
-                    if (isValid(data, i, j, k)) {
+                    if (this.isValid(data, i, j, k)) {
                         data[i][j] = `${k}`;
-                        if (sodokoSolver(data)) {
+                        if (this.sudokuSolverFunc(data)) {
                             return true;
                         } else {
                             data[i][j] = '.';
