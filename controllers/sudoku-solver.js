@@ -31,7 +31,6 @@ class SudokuSolver {
   checkRowPlacement(puzzleString, row, column, value) {
  
       var board = this.createBoard(puzzleString); 
-          console.log(board);
       for (var i = 0; i < 9; i++) {
          
               if (board[row][i] == value  && column!=i ) {
