@@ -34,7 +34,9 @@ module.exports = function (app) {
       var row = letter_to_digit[req_coordinate.split("")[0].toUpperCase()];
       var column = req_coordinate.split("")[1]-1;
 
-      if (solver.checkRowPlacement(puzzleString, row, column, req_value)==false && solver.checkColPlacement(puzzleString, row, column, req_value)==false) {
+      if (solver.checkRowPlacement(puzzleString, row, column, req_value)==false && solver.checkColPlacement(puzzleString, row, column, req_value)==false && solver.checkRegionPlacement(puzzleString, row, column, req_value)==false) {
+         res.json({ "valid": false, "conflict": [ "row", "column", "region" ] });
+      } else if (solver.checkRowPlacement(puzzleString, row, column, req_value)==false && solver.checkColPlacement(puzzleString, row, column, req_value)==false) {
           res.json({ "valid": false, "conflict": [ "row", "column" ] });   
       } else if(solver.checkRowPlacement(puzzleString, row, column, req_value)==false) {
           res.json({ "valid": false, "conflict": [ "row" ] }); 
